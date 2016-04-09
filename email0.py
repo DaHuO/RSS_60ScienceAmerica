@@ -20,25 +20,25 @@ def sendemail(article_title):
     att1['Content-Disposition'] = 'attachment; filename = "' +article_title +\
         '.txt' + '"'
     msg.attach(att1)
-    msg['to'] = 'wujiuliu_65@kindle.cn'
+    msg['to'] = 'target1'
     msg['from'] = 'dhuo@tcd.ie'
     msg['subject'] = 'hello world'
     try:
         server = smtplib.SMTP('smtp.gmail.com:587')
         server.ehlo()
         server.starttls()
-        server.login('dhuo@tcd.ie', '')
+        server.login('username', 'password')
         server.sendmail(msg['from'], msg['to'], msg.as_string())
         server.quit()
         print 'heihei'
     except Exception, e:
         print str(e)
-    msg['to'] = 'whdd_1202_25@kindle.cn'
+    msg['to'] = 'target2'
     try:
         server = smtplib.SMTP('smtp.gmail.com:587')
         server.ehlo()
         server.starttls()
-        server.login('dhuo@tcd.ie', '')
+        server.login('username', 'password')
         server.sendmail(msg['from'], msg['to'], msg.as_string())
         server.quit()
         print 'heihei'
