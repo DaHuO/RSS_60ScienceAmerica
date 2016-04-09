@@ -12,7 +12,6 @@ def sendemail(article_title):
         print "already got it"
         return
 
-
     msg = MIMEMultipart()
 
     att1 = MIMEText(open(article_title + '.txt', 'rb').read(), 'base64',
@@ -53,8 +52,9 @@ def getText():
     article_content = article['content']
     files = [f for f in listdir('text') if isfile(join('text', f))]
     if article_title + '.txt' in files:
+        print "already there"
         return -1
-    file_out = open(article_title + '.txt', 'w')
+    file_out = open('text/' + article_title + '.txt', 'w')
     file_out.write(article_content.encode("utf-8"))
     file_out.close()
     return article_title

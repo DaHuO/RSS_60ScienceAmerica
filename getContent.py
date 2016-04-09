@@ -28,7 +28,7 @@ def getContent():
         flag_p_end = html.find('</p>', flag_p)
         paragraphs.append(html[flag_p + 3:flag_p_end])
         cursor = flag_p_end
-    text = ''
+    text = article['title'] + '\n\n\n\n'
     for para in paragraphs:
         para = para.replace('<em>', '')
         para = para.replace('</em>', '')
