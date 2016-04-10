@@ -6,6 +6,7 @@ from email.mime.multipart import MIMEMultipart
 from getContent import getContent
 from os import listdir
 from os.path import isfile, join
+from time import gmtime, strftime
 
 def sendemail(article_title):
     if article_title == -1:
@@ -13,8 +14,9 @@ def sendemail(article_title):
         return
 
     msg = MIMEMultipart()
+    file_log = open('log', 'a')
 
-    att1 = MIMEText(open(article_title + '.txt', 'rb').read(), 'base64',
+    att1 = MIMEText(open('text/' + article_title + '.txt', 'rb').read(), 'base64',
         'gb2312')
     att1['Content-Type'] = 'application/octet-stream'
     att1['Content-Disposition'] = 'attachment; filename = "' +article_title +\
@@ -31,6 +33,8 @@ def sendemail(article_title):
         server.sendmail(msg['from'], msg['to'], msg.as_string())
         server.quit()
         print 'heihei'
+        file_log.write(strftime("%Y-%m-%d %H:%M:%S", gmtime()) + "\t" + \
+            msg['to'] + article_title + '\n')
     except Exception, e:
         print str(e)
     msg['to'] = 'target2'
@@ -42,8 +46,11 @@ def sendemail(article_title):
         server.sendmail(msg['from'], msg['to'], msg.as_string())
         server.quit()
         print 'heihei'
+        file_log.write(strftime("%Y-%m-%d %H:%M:%S", gmtime()) + "\t" + \
+            msg['to'] + '\t' + article_title + '\n')
     except Exception, e:
         print str(e)
+    file_log.close()
 
 
 def getText():
