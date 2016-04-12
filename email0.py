@@ -39,15 +39,20 @@ def sendemail(article_title):
         print str(e)
     msg['to'] = 'target2'
     try:
+        msg2 = MIMEMultipart()
+        msg2.attach(att1)
+        msg2['to'] = 'target2'
+        msg2['from'] = 'dhuo@tcd.ie'
+        msg2['subject'] = 'hello world'
         server = smtplib.SMTP('smtp.gmail.com:587')
         server.ehlo()
         server.starttls()
         server.login('username', 'password')
-        server.sendmail(msg['from'], msg['to'], msg.as_string())
+        server.sendmail(msg2['from'], msg2['to'], msg2.as_string())
         server.quit()
         print 'heihei'
         file_log.write(strftime("%Y-%m-%d %H:%M:%S", gmtime()) + "\t" + \
-            msg['to'] + '\t' + article_title + '\n')
+            msg2['to'] + '\t' + article_title + '\n')
     except Exception, e:
         print str(e)
     file_log.close()

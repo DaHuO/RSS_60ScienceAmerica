@@ -30,6 +30,7 @@ def getContent():
         cursor = flag_p_end
     text = article['title'] + '\n\n\n\n'
     for para in paragraphs:
+        para = h.unescape(para)
         para = para.replace('<em>', '')
         para = para.replace('</em>', '')
         para = para.replace('</a>', '')
@@ -37,8 +38,7 @@ def getContent():
         while flag_a!= -1:
             flag_a_end = para.find('>', flag_a)
             para = para[:flag_a] + para[flag_a_end + 1:]
-            flag_a = para.find('<a', flag_a_end)
-        para = h.unescape(para)
+            flag_a = para.find('<a')
         # print para
         text += para + '\n\n'
     article['content'] = text
